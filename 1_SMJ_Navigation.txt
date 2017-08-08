@@ -1,0 +1,54 @@
+*Story Map - Journal Navigation
+
+*Setup
+When creating the shapefile/feature include a field that will tell the story map which section to jump to.
+it is possiable to use the ID of the feature, but that means you miss one due to the numbering of the features starting at 0.
+
+The SMJ (Story Map - Journal) has the sections listed like this:
+0 = Home
+1 = First section
+2 = Second section
+....and so on
+
+*Finding the relevent ids
+[map id]
+To find the [map id] simply open the map in portal and look in the address bar of the page.
+It will be something like "appid=98347aueua73287494aufd"
+Copy the number (98347aueua73287494aufd) and replace [map id] in the code with the copied number as shown below.
+--There are no brackets around this number--
+
+[layer id]
+open the story map and then the developer console (f12 in Crome and IE)
+copy "app.maps.[map id].response.map._layers" and paste it into the dev console, replacing [map id] with your map id
+hit enter
+you should have a list of layers, find the right one by looking through each _layer and finding the "name".
+Once you have found the right one, copy the "_layer" reference for it.
+If you are using a geodatabase to host the features then the name will be "[geodatabase name]_[number]"
+a shape file will be "[shapefile name]_[number]"
+--There are no brackets around this name--
+
+"storymapjump"
+Copy "app.maps.[map id].response.map._layers.[layer id].graphic.attributes"
+and paste into the Dev console like before, replacing [map id] and [layer id] with the values found in the previous steps.  
+This will return a list of the all the items in the layer you selected.
+open up the "Object" then "attributes" field to find a list of the attributes for that feature.
+find the name of the field that you are using and replace the "storymapjump" in the code
+--there are "" around this name--
+
+/*Usage:
+       *      Replace [map id] with the UID of the "MAP", not the "story map"
+       *      Replace [layer id] with the id of the layer you wish to use to click navigate
+       *      Replace "storymapjump" with the field used as the marker on the feature
+       *
+       *Example:
+       *    app.maps.98347aueua73287494aufd.response.map._layers.nav_layer_9435.on("mouse-over",function(e){
+       *    app.maps.98347aueua73287494aufd.response.map.setMapCursor("pointer");
+       *    });
+       *    app.maps.98347aueua73287494aufd.response.map._layers.nav_layer_9435.on("mouse-out",function(e){
+       *    app.maps.98347aueua73287494aufd.response.map.setMapCursor("default");
+       *    });
+       *    app.maps.98347aueua73287494aufd.response.map._layers.nav_layer_9435.on("click",function(e){
+       *    var index = e.graphic.attributes["UID"];
+       *    topic.publish("story-navigate-section", index);
+       *    });
+       */
