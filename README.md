@@ -7,9 +7,9 @@ This was developed to overcome some compatablity issues with the original script
 
 This script has been tested on:
 Working:
-Chrome Version 60.0.3112.90 (Official Build) (64-bit)
-Internet Explorer 11 Version 11.483.15063.0
-Samsung Internet Version 5.4.02.3
+Chrome Version 60.0.3112.90 (Official Build) (64-bit)<br/>
+Internet Explorer 11 Version 11.483.15063.0<br/>
+Samsung Internet Version 5.4.02.3<br/>
 
 Not working:
 Safari (could not find the version number....)
